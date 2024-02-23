@@ -15,7 +15,7 @@ const Sidebar = ( { sections } ) => {
               onClick={() => window.location.pathname = section.id}
             >
               <div>
-                {section.label}
+                <p className="font-link">{section.label}</p>
               </div>
             </li>
           )

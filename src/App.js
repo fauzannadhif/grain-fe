@@ -2,19 +2,33 @@ import { useQuery } from "@apollo/client";
 import { getAllMenus } from "./queries";
 import ItemCard from "./ItemCard";
 import Sidebar from "./Sidebar";
+import Modal from "./Modal";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import './App.css'
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'
 
 const App = () => {
   const { loading, error, data } = useQuery(getAllMenus)
+  const [modalItem, setModalItem] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => {setModalOpen(false); setModalItem({})}
+  const open = (item) => {setModalOpen(true); setModalItem(item)}
 
   if (loading) return <p>Loading...</p>
 
+  if (modalOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'visible'
+  }
+
   return (
     <div className="App">
-      <div class="flex-box">
+      <div className="flex-box">
         <Sidebar sections={data.menus[0].sections}/>
         {data?.menus?.map(menu => 
           <div key={menu.id}>
@@ -32,7 +46,7 @@ const App = () => {
                   <Row>
                     {section.items?.map(item =>
                       <Col sm={6} key={item.id}>
-                          <ItemCard item={item} key={item.id}/>
+                          <ItemCard item={item} key={item.id} onOpen={() => open(item)}/>
                       </Col>
                     )}
                   </Row>
@@ -42,6 +56,11 @@ const App = () => {
           </div>
         )}
       </div>
+      <AnimatePresence>
+        {modalOpen && <Modal modalItem={modalItem} handleClose={close} />}
+        
+      </AnimatePresence>
+
     </div>
   )
 }
