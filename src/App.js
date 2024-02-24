@@ -58,9 +58,7 @@ const App = () => {
       </div>
       <AnimatePresence>
         {modalOpen && <Modal modalItem={modalItem} handleClose={close} />}
-        
       </AnimatePresence>
-
     </div>
   )
 }

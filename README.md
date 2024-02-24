@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Setup
 
-## Available Scripts
+* Install dependencies
 
-In the project directory, you can run:
+  Run `bundle install`
 
-### `npm start`
+* Runs npm server
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  Run `npm start`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+*  Open up react app in local
 
-### `npm test`
+  Open up http://localhost:3000 in your browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Development Process
 
-### `npm run build`
+Below points detail the development process that I went through to implement this project.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Setup development environment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  First and foremost I had to setup the development environment in my PC. This includes installing node, installing react, creating the react project (`npx create-react-app grain-fe`), and last but not least setting up the github repository in https://github.com/fauzannadhif/grain-fe.
+  (Estimated time spent: 30 mins)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Setup Apollo Graphql
 
-### `npm run eject`
+  The second step would be to setup the apollo graphql. You can install the package by running `npm install @apollo/client graphql`. After that I modified the index.js to initiate the apollo client and wrap everything with `<ApolloProvider client={client}>` tag so that I can call my graphql API from anywhere inside my App. After that I created a qeury inside queries.js. The query that we need is to get all the menus, like this:
+  ```
+  const getAllMenus = gql`{
+    menus {
+      id
+      .
+      .
+      .
+    }
+  }  
+  ```
+  (Estimated time spent: 1 hour)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Creating the components
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  The third step is to create all the necessary components for our App. There are three main components that we need in our namely `ItemCard` to display the product, `Sidebar` to show the sections, and `Modal` to show the product details when the Add button is clicked :
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  * ItemCard
+    I created the card using the base from `'react-bootstrap/Card'`. This ItemCard receives `items` fetched from the backend as props. The ItemCard is divided into 2 sections: the img at the top and the body. For this project I hardcoded the img to a path in local file because our backend doesnt return an image. In the body the card displays the item's label at the top, item's description after that, and then the item's price and a button at the bottom.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  * Sidebar
+    The Sidebar lists down all the sections. It receives `sections` fetched from the backend as props.
 
-## Learn More
+  * Modal
+    The Modal show the product details. It will show up when the Add button is clicked. To animate this, we can use `framer-motion` library. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  (Estimated time spent: 4 hours)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Write this documentation
 
-### Code Splitting
+  The last but not the least step was for me to write this README :). This is to document my thought process and approach to this project. We have to maintain the states of `modalItem` and `modalOpen` to indicate whether a modal is currently open or not. We then pass this `open()` function as a props to the `ItemCard` component so that we can trigger this from the card's button. We also need `Backdrop` component as the background when modal is open and enables us to close the modal by clicking on the Backdrop by passing `close()` function to it.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  (Estimated time spent: 30 minutes)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+(Total estimated time spent: 5 hours 30 mins)
