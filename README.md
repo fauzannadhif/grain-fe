@@ -49,13 +49,13 @@ Below points detail the development process that I went through to implement thi
     The Sidebar lists down all the sections. It receives `sections` fetched from the backend as props.
 
   * Modal
-    The Modal show the product details. It will show up when the Add button is clicked. To animate this, we can use `framer-motion` library. 
+    The Modal show the product details. It will show up when the Add button is clicked. To animate this, we can use `framer-motion` library. We have to maintain the states of `modalItem` and `modalOpen` to indicate whether a modal is currently open or not. We then pass this `open()` function as a props to the `ItemCard` component so that we can trigger this from the card's button. We also need `Backdrop` component as the background when modal is open and enables us to close the modal by clicking on the Backdrop by passing `close()` function to it.
 
   (Estimated time spent: 4 hours)
 
 * Write this documentation
 
-  The last but not the least step was for me to write this README :). This is to document my thought process and approach to this project. We have to maintain the states of `modalItem` and `modalOpen` to indicate whether a modal is currently open or not. We then pass this `open()` function as a props to the `ItemCard` component so that we can trigger this from the card's button. We also need `Backdrop` component as the background when modal is open and enables us to close the modal by clicking on the Backdrop by passing `close()` function to it.
+  The last but not the least step was for me to write this README :). This is to document my thought process and approach to this project. 
 
   (Estimated time spent: 30 minutes)
 
